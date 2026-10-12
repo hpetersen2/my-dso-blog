@@ -7,6 +7,7 @@ import '@fontsource-variable/reddit-sans';
 import Header from '../components/header';
 import Hero from '../components/hero';
 import MySkills from '../components/my-skills';
+import ProjectHighlights from '../components/project-highlights';
 
 import styles from './index.module.css';
 
@@ -24,6 +25,7 @@ export default function Home(): ReactNode {
               <Hero />
             </section>
             <MySkills />
+            <ProjectHighlights />
           </main>
         </div>
       </Layout>
