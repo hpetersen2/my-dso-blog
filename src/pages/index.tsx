@@ -4,6 +4,8 @@ import {HtmlClassNameProvider} from '@docusaurus/theme-common';
 import '@fontsource-variable/quicksand';
 import '@fontsource-variable/reddit-sans';
 
+import Header from '../components/header';
+
 import styles from './index.module.css';
 
 export default function Home(): ReactNode {
@@ -14,6 +16,7 @@ export default function Home(): ReactNode {
         description="Portfolio of a DevSecOps engineer: skills, project highlights and contact."
         noFooter>
         <div className={styles.portfolio}>
+          <Header />
           <main>
           </main>
         </div>
