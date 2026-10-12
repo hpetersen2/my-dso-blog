@@ -4,11 +4,12 @@ import {HtmlClassNameProvider} from '@docusaurus/theme-common';
 import '@fontsource-variable/quicksand';
 import '@fontsource-variable/reddit-sans';
 
+import Contact from '../components/contact';
+import Footer from '../components/footer';
 import Header from '../components/header';
 import Hero from '../components/hero';
 import MySkills from '../components/my-skills';
 import ProjectHighlights from '../components/project-highlights';
-
 import styles from './index.module.css';
 
 export default function Home(): ReactNode {
@@ -26,7 +27,9 @@ export default function Home(): ReactNode {
             </section>
             <MySkills />
             <ProjectHighlights />
+            <Contact />
           </main>
+          <Footer />
         </div>
       </Layout>
     </HtmlClassNameProvider>
