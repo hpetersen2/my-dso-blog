@@ -19,16 +19,19 @@ The goal of this challenge is to reset the password of the user "Jim" by correct
 
 ## Step-by-Step Walkthrough
 
-1. **Start the password reset flow.** On the login page, use "Forgot your password?" and enter Jim's email address. The application displays his chosen security question: *"Which is your oldest sibling's name?"*
-2. **Find a clue inside the application.** Browsing Jim's product reviews reveals a review on the "Green Smoothie" product with the comment *"Fresh out of a Replicator."* — a clear reference to *Star Trek*.
-3. **Research the identity.** Searching for "Jim Star Trek" identifies the character as Captain James T. Kirk.
-4. **Find the sibling's name.** Searching for "James T. Kirk siblings" reveals his older brother's name: George Samuel Kirk.
-5. **Test the security answer.** Entering the full name does not work. Entering just **"Samuel"** is accepted as the correct answer.
-6. **Set a new password.** The password reset completes successfully, granting access to Jim's account.
+1. **Open the login page.** Go to `http://localhost:3000/#/login` and click the **"Forgot your password?"** link below the login form. This opens the **"Forgot Password"** page.
+2. **Enter Jim's email address.** Type `jim@juice-sh.op` into the **Email** field. As soon as the app can resolve the address, it fetches the matching security question in the background and displays it as the placeholder text of the **Answer** field right below: *"Your eldest siblings middle name?"*
+3. **Find a clue inside the application.** Open a second tab and browse the shop's products. On the **"Green Smoothie"** product, open the reviews and look for one authored by `jim@juice-sh.op`. It reads: *"Fresh out of a replicator."* — a clear reference to *Star Trek*.
+4. **Research the identity.** Searching the web for "Jim Star Trek" identifies the character as Captain James T. Kirk.
+5. **Find the sibling's name.** Searching for "James T. Kirk siblings" reveals his older brother: George Samuel Kirk — nicknamed "Sam", with **"Samuel"** as his middle name. Since the security question specifically asks for the *middle* name (not the full name), this is the answer to test.
+6. **Submit a wrong answer first (optional sanity check).** Typing something else, e.g. `Captain`, into the **Answer** field, filling in a new password in **New Password** / **Repeat New Password**, and clicking the pencil/submit button at the bottom shows a red error box above the form with the exact text: `Wrong answer to security question.` This confirms the answer field is actively checked server-side.
+7. **Enter the correct answer and a new password.** Clear the **Answer** field and type `Samuel`. Fill in a new password (meeting the strength requirements shown in the hint below the field) in **New Password**, repeat it identically in **Repeat New Password**, then click the submit button again.
+8. **Confirm the result.** The red error box disappears and a confirmation line appears above the form: `Your password was successfully changed.` The form resets itself — there is no automatic redirect.
+9. **Log in with the new password.** Navigate back to `http://localhost:3000/#/login`, enter `jim@juice-sh.op` and the new password you just set. The login succeeds and grants full access to Jim's account (orders, basket, profile, etc.).
 
 ## Alternative Approach
 
-Instead of OSINT research, the security question could also be attacked with a brute-force approach: capture the reset request in Burp Suite, send it to the Repeater/Intruder, and iterate through a wordlist of common first names until the correct answer is found.
+Instead of OSINT research, the security question could also be attacked with a brute-force approach: capture the reset request in Burp Suite, send it to the Repeater/Intruder, and iterate through a wordlist of common first names until the correct answer is found. Note that Juice Shop deliberately rate-limits the `Forgot your password?` flow to slow down this exact approach, so a straightforward Intruder attack with default settings will start getting throttled/blocked after a number of attempts rather than running to completion unhindered.
 
 ## Why This Matters (Risk & Consequences)
 
