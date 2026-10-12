@@ -5,6 +5,7 @@ import '@fontsource-variable/quicksand';
 import '@fontsource-variable/reddit-sans';
 
 import Header from '../components/header';
+import Hero from '../components/hero';
 
 import styles from './index.module.css';
 
@@ -18,6 +19,9 @@ export default function Home(): ReactNode {
         <div className={styles.portfolio}>
           <Header />
           <main>
+            <section id="about" className={styles.about}>
+              <Hero />
+            </section>
           </main>
         </div>
       </Layout>
