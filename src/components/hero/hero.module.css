@@ -17,6 +17,7 @@
 
 .name {
   margin: 8px 0 24px;
+  font-family: var(--font-heading);
   font-size: 88px;
   font-weight: 700;
   line-height: 1.2;
