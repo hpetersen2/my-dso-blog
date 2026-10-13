@@ -42,9 +42,11 @@ export default function ProjectCard({project, heading}: ProjectCardProps): React
           <Button href={project.docsUrl} variant="primary">
             Documentation
           </Button>
-          <Button href={project.githubUrl} variant="outline">
-            GitHub
-          </Button>
+          {project.githubUrl && (
+            <Button href={project.githubUrl} variant="outline">
+              GitHub
+            </Button>
+          )}
         </div>
       </div>
     </article>

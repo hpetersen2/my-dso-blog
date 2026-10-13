@@ -5,7 +5,7 @@ export interface Project {
   tags: string[];
   image: string;
   docsUrl: string;
-  githubUrl: string;
+  githubUrl?: string;
 }
 
 const placeholderText =
@@ -19,7 +19,7 @@ export const projects: Project[] = [
     tags: ['HTML', 'CSS'],
     image: '/img/portfolio/projects/baby-tools-shop.svg',
     docsUrl: '/docs/projects/baby-tools-shop',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/hpetersen2/baby-tools-shop',
   },
   {
     id: 'truck-signs-api',
@@ -28,7 +28,7 @@ export const projects: Project[] = [
     tags: ['Python', 'Container'],
     image: '/img/portfolio/projects/truck-signs-api.svg',
     docsUrl: '/docs/projects/truck-signs-api',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/hpetersen2/truck-signs-api',
   },
   {
     id: 'juice-shop-meister',
@@ -37,7 +37,6 @@ export const projects: Project[] = [
     tags: ['IT Security', 'Container'],
     image: '/img/portfolio/projects/owasp-juice-shop-master.svg',
     docsUrl: '/docs/projects/owasp-juice-shop-master/overview',
-    githubUrl: '#',
   },
   {
     id: 'minecraft',
@@ -46,7 +45,7 @@ export const projects: Project[] = [
     tags: ['Yaml', 'Shell scripting', 'IT Security', 'Container'],
     image: '/img/portfolio/projects/minecraft.svg',
     docsUrl: '/docs/projects/minecraft-server',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/hpetersen2/Minecraft-Server',
   },
   {
     id: 'wordpress-hosten',
@@ -55,7 +54,7 @@ export const projects: Project[] = [
     tags: ['Container', 'Yaml'],
     image: '/img/portfolio/projects/wordpress.svg',
     docsUrl: '/docs/projects/wordpress-docker-setup',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/hpetersen2/wordpress-docker-setup',
   },
 ];
 
