@@ -5,8 +5,8 @@ import SectionTitle from '../section-title';
 import styles from './contact.module.css';
 
 
-const MAIL = 'your.mail@example.com';
-const PROFILE_URL = '#';
+const MAIL = 'kontakt@henrik-petersen.de';
+const PROFILE_URL = 'https://www.linkedin.com/in/henrik-petersen-9b08b3346/';
 
 function MailIcon(): ReactNode {
   return (
