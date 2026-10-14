@@ -16,22 +16,11 @@ This project documents the completion of three self-selected hacking challenges 
   - [3. Database Schema (Information Disclosure / SQL Injection)](./03-database-schema.md)
 - [Educational Purpose Notice](#educational-purpose-notice)
 
-import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
-
-<GithubLinkAdmonition 
-    link="https://github.com/HPetersen2/OWASP-Juice-Shop-Master"
-    title="Github Tip" 
-    type="tip"
->
-Checkout this repository to see the code/implementation
-</GithubLinkAdmonition>
-
 ## Quickstart
 
-1. Clone the [GitHub repository](https://github.com/HPetersen2/OWASP-Juice-Shop-Master).
-2. Start an OWASP Juice Shop instance locally (`docker run -d -p 3000:3000 bkimminich/juice-shop`) or use the instance shown in the videos.
-3. Open the page of the challenge you're interested in — each contains the full write-up and video link.
-4. Watch the linked video (max. 5 minutes each) alongside the write-up to reproduce the steps.
+1. Start an OWASP Juice Shop instance locally (`docker run -d -p 3000:3000 bkimminich/juice-shop`) or use the instance shown in the videos.
+2. Open the page of the challenge you're interested in — each contains the full write-up and video link.
+3. Watch the linked video (max. 5 minutes each) alongside the write-up to reproduce the steps.
 
 ## Challenges
 
