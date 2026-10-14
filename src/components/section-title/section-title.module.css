@@ -1,0 +1,14 @@
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white);
+}
+
+@media (max-width: 900px) {
+  .title {
+    font-size: var(--title-size-mobile, 40px);
+  }
+}
