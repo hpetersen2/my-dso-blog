@@ -1,0 +1,33 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 90px;
+  padding: 0;
+  border: 1px solid var(--white);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.button svg {
+  height: 56px;
+  width: auto;
+}
+
+@media (max-width: 900px) {
+  .button {
+    height: 72px;
+  }
+
+  .button svg {
+    height: 44px;
+  }
+}
