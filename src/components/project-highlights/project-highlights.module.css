@@ -1,0 +1,106 @@
+
+.section {
+  --title-size-mobile: 48px;
+  padding-block: 70px 73px;
+  background: var(--blue);
+}
+
+.desktop {
+  display: grid;
+  grid-template-columns: 288px 1fr; 
+  margin-top: 66px;
+}
+
+.mobile {
+  display: none;
+}
+
+.list {
+  margin: 0 0 0 8px;
+  padding-left: 27px;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.list li {
+  padding-block: 15px;
+  color: var(--white);
+  line-height: 23px;
+}
+
+
+.list li.active {
+  color: var(--dark);
+}
+
+.list button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.list button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.more,
+.more:hover {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.more span {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.more:hover span {
+  text-decoration-thickness: 2px;
+}
+
+.moreText {
+  margin: 30px 11px 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+
+@media (max-width: 900px) {
+  .section {
+    padding-block: 19px 92px;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 40px -11px 0; 
+  }
+
+  .more,
+  .more:hover {
+    align-self: center;
+    margin: 10px 0 0;
+    font-size: 20px;
+  }
+}
