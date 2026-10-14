@@ -1,0 +1,134 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--blue);
+  transition: transform 0.3s ease;
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+.hidden:focus-within {
+  transform: none;
+}
+
+.inner {
+  position: relative;
+  height: 109px;
+  padding-top: 48px;
+}
+
+.burger {
+  display: none;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 72px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link,
+.link:hover {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.link.active,
+.link.active:hover {
+  color: var(--dark);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    height: 90px;
+    padding-top: 34px;
+  }
+
+  .burger {
+    position: absolute;
+    top: 34px;
+    right: 31px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .burger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--white);
+    transition:
+      transform 0.2s ease,
+      width 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .burger:hover span:nth-child(2) {
+    width: 60%;
+    align-self: flex-end;
+  }
+
+  .burgerOpen {
+    justify-content: center;
+  }
+
+  .burgerOpen span:nth-child(1) {
+    transform: translateY(1px) rotate(45deg);
+  }
+
+  .burgerOpen span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burgerOpen span:nth-child(3) {
+    transform: translateY(-1px) rotate(-45deg);
+  }
+
+  .burgerOpen:hover span {
+    height: 3px;
+  }
+
+  .list {
+    display: none;
+    position: absolute;
+    top: 78px;
+    right: 24px;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 24px;
+    background: var(--white);
+    border-radius: 16px;
+  }
+
+  .listOpen {
+    display: flex;
+  }
+
+  .link,
+  .link:hover,
+  .link.active,
+  .link.active:hover {
+    color: var(--blue);
+  }
+}
