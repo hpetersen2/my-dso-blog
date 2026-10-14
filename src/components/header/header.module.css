@@ -62,9 +62,7 @@
     position: absolute;
     top: 34px;
     right: 31px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: block;
     width: 32px;
     height: 30px;
     padding: 0;
@@ -74,7 +72,8 @@
   }
 
   .burger span {
-    display: block;
+    position: absolute;
+    left: 0;
     width: 100%;
     height: 2px;
     background: var(--white);
@@ -84,17 +83,36 @@
       opacity 0.2s ease;
   }
 
-  .burger:hover span:nth-child(2) {
-    width: 60%;
-    align-self: flex-end;
+  /* Evenly spaced across the 30px-tall button when closed. */
+  .burger span:nth-child(1) {
+    top: 0;
   }
 
-  .burgerOpen {
-    justify-content: center;
+  .burger span:nth-child(2) {
+    top: 14px;
   }
 
+  .burger span:nth-child(3) {
+    top: 28px;
+  }
+
+  @media (hover: hover) {
+    .burger:hover span:nth-child(2) {
+      width: 60%;
+      left: auto;
+      right: 0;
+    }
+
+    .burgerOpen:hover span {
+      height: 3px;
+    }
+  }
+
+  /* Open state: slide the outer bars onto the middle bar's position and
+     rotate them into an X purely via transform, so the whole animation is
+     a single continuous transition with no layout jump. */
   .burgerOpen span:nth-child(1) {
-    transform: translateY(1px) rotate(45deg);
+    transform: translateY(14px) rotate(45deg);
   }
 
   .burgerOpen span:nth-child(2) {
@@ -102,11 +120,7 @@
   }
 
   .burgerOpen span:nth-child(3) {
-    transform: translateY(-1px) rotate(-45deg);
-  }
-
-  .burgerOpen:hover span {
-    height: 3px;
+    transform: translateY(-14px) rotate(-45deg);
   }
 
   .list {
