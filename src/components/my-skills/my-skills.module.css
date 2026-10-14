@@ -1,0 +1,31 @@
+.section {
+  --title-size-mobile: 40px;
+  padding-block: 71px;
+  background: var(--dark);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 33px;
+  margin-top: 42px;
+}
+
+.carousel {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-block: 74px 94px;
+  }
+
+  .grid {
+    display: none;
+  }
+
+  .carousel {
+    display: block;
+    margin-top: 50px;
+  }
+}
