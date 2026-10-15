@@ -20,23 +20,25 @@ The goal is to extract the full database schema via a SQL injection vulnerabilit
 
 ## Step-by-Step Walkthrough
 
-1. **Identify the injection point.** The product search endpoint (`/rest/products/search?q=...`) passes the `q` parameter into a SQL query. Submitting a single quote (`'`) causes a server error, confirming the input is not properly sanitized.
-2. **Determine the number of columns.** Since the search results render multiple product fields, the underlying `SELECT` must return a matching number of columns. This can be found by incrementally testing `UNION SELECT NULL, NULL, ...` (or `ORDER BY n--`) until no error occurs — in this case, 9 columns are required.
-3. **Break out of the original query.** The payload starts with `test'))` — this closes the string literal (`'`) and the parentheses that wrap the search condition in the original query, turning the rest of the input into syntactically valid, attacker-controlled SQL.
-4. **Append a UNION SELECT.** The first 8 columns are filled with placeholder values (`1,2,3,4,5,6,7,8`) purely to match the expected column count and types of the original query. The 9th column is replaced with `sql`, pulled from SQLite's internal `sqlite_schema` table, which stores the schema definition of every table in the database.
-5. **Comment out the rest of the original query** using `--` so any remaining SQL from the original statement is ignored.
-6. **Assemble and encode the payload:**
+1. **Locate the injection point.** Use the search icon in the top navigation bar and type a query, e.g. `juice`. This calls `GET /rest/products/search?q=juice` and renders the matching products — confirming `q` reaches the backend as-is.
+2. **Break the query syntactically.** Search for `test'` (a word followed by a single, unmatched quote). The product grid stays empty and, if you have DevTools open on the Network tab, the request returns `HTTP 500`. This confirms the `q` parameter is concatenated directly into a SQL string instead of being passed as a bound parameter.
+3. **Determine the number of columns.** Since the search results render full product rows, any `UNION SELECT` has to return exactly as many columns as the `Products` table has. Find that number by sending `q=test')) UNION SELECT NULL,NULL,...--` via Burp Repeater (or directly in the address bar) and increasing the number of `NULL`s one at a time until the `SQLITE_ERROR: SELECTs to the left and right of UNION do not have the same number of result columns` error disappears. In this setup, the table has **10 columns** (`id`, `name`, `description`, `price`, `deluxePrice`, `image`, `alternateImages`, `createdAt`, `updatedAt`, `deletedAt`) — this number can differ between Juice Shop versions, so always verify it by counting yourself rather than assuming a fixed value.
+4. **Break out of the original query.** The payload starts with `test'))` — this closes the string literal (`'`) and the two parentheses that wrap the search condition in the original query (`WHERE ((name LIKE '%...%' OR description LIKE '%...%') AND deletedAt IS NULL)`), turning the rest of the input into syntactically valid, attacker-controlled SQL.
+5. **Append a UNION SELECT.** Fill the columns with harmless placeholder values, keeping the `name` column (2nd position) as a real string (e.g. `'x'`) — the frontend runs a text-translation function on `name`/`description` that throws if it receives `NULL`, which would turn your injection into a generic, unhelpful 500 error. Put the payload in the `description` column (3rd position) instead, pulling `sql` from SQLite's internal `sqlite_schema` table, which stores the `CREATE TABLE` statement of every table in the database.
+6. **Exclude rows with no SQL text.** Internal auto-indexes and the `sqlite_sequence` table have `sql = NULL` and would hit the same translation bug from step 5 — add `WHERE sql IS NOT NULL` to skip them.
+7. **Comment out the rest of the original query** using `--` so any remaining SQL from the original statement (closing `%'` quotes, the `AND deletedAt...` clause, `ORDER BY name`) is ignored.
+8. **Assemble and encode the payload:**
 
    ```
-   test')) UNION SELECT 1,2,3,4,5,6,7,8,sql FROM sqlite_schema--
+   test')) UNION SELECT 1,'x',sql,NULL,NULL,NULL,NULL,NULL,NULL,NULL FROM sqlite_schema WHERE sql IS NOT NULL--
    ```
 
    URL-encoded:
 
    ```
-   http://localhost:3000/rest/products/search?q=test'))%20UNION%20SELECT%201,2,3,4,5,6,7,8,sql%20FROM%20sqlite_schema--
+   http://localhost:3000/rest/products/search?q=test'))%20UNION%20SELECT%201,'x',sql,NULL,NULL,NULL,NULL,NULL,NULL,NULL%20FROM%20sqlite_schema%20WHERE%20sql%20IS%20NOT%20NULL--
    ```
-7. **Submit the request.** The response now returns the full database schema (table and column definitions) inside the search results.
+9. **Submit the request** (paste the URL directly into the browser, or send it from Burp Repeater). The response is now `HTTP 200` with a JSON body containing one "product" per database table, each with its `CREATE TABLE ...` statement sitting in the `description` field — the complete schema of every table, including `Users`, `Cards`, `Wallets`, `SecurityAnswers`, etc.
 
 ## Why This Matters (Risk & Consequences)
 
