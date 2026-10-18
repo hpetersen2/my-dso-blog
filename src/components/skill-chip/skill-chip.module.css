@@ -14,10 +14,25 @@
   font-weight: 400;
   line-height: 1;
   white-space: pre-line;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .chip img {
   height: 32px;
   width: auto;
   max-width: 44px;
+}
+
+@media (max-width: 320px) {
+  .chip {
+    height: 36px;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .chip img {
+    height: 24px;
+    max-width: 32px;
+  }
 }

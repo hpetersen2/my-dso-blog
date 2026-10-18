@@ -29,3 +29,13 @@
     margin-top: 50px;
   }
 }
+
+@media (max-width: 480px) {
+  .section {
+    padding-block: 48px 64px;
+  }
+
+  .carousel {
+    margin-top: 32px;
+  }
+}

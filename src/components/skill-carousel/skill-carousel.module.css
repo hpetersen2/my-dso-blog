@@ -1,13 +1,13 @@
 
 .carousel {
-  margin-inline: -24px;
+  margin-inline: calc(-1 * var(--gutter, 24px));
 }
 
 .track {
   display: flex;
   gap: 16px;
-  padding-inline: 20px;
-  scroll-padding-inline: 20px;
+  padding-inline: var(--gutter, 20px);
+  scroll-padding-inline: var(--gutter, 20px);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -19,10 +19,11 @@
 
 
 .slide {
-  flex: 0 0 min(340px, calc(100vw - 50px));
+  flex: 0 0 min(340px, calc(100vw - 2 * var(--gutter, 24px) - 10px));
+  min-width: 0;
   scroll-snap-align: start;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   column-gap: 15px;
   row-gap: 33px;
   align-items: center;
@@ -87,4 +88,28 @@
 .dotActive {
   width: 18px;
   background: var(--white);
+}
+
+@media (max-width: 320px) {
+  .slide {
+    column-gap: 8px;
+    row-gap: 20px;
+    padding: 18px 8px;
+    border-radius: 20px;
+  }
+
+  .skill {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+
+  .skill img {
+    height: 32px;
+  }
+
+  .list {
+    padding-left: 12px;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
 }

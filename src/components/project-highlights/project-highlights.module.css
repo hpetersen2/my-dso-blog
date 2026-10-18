@@ -94,7 +94,7 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    margin: 40px -11px 0; 
+    margin: 40px 0 0;
   }
 
   .more,
@@ -102,5 +102,27 @@
     align-self: center;
     margin: 10px 0 0;
     font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding-block: 19px 64px;
+  }
+
+  .mobile {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 320px) {
+  .more,
+  .more:hover {
+    font-size: 16px;
+  }
+
+  .moreText {
+    margin-inline: 0;
+    font-size: 16px;
   }
 }

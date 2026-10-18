@@ -54,3 +54,15 @@
     font-size: 1.1rem;
   }
 }
+
+@media (max-width: 480px) {
+  .main {
+    padding: 24px 0;
+    overflow-x: clip;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    overflow-wrap: anywhere;
+  }
+}

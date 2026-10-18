@@ -146,3 +146,43 @@
     color: var(--blue);
   }
 }
+
+@media (max-width: 480px) {
+  .burger {
+    right: var(--gutter);
+  }
+
+  .list {
+    right: var(--gutter);
+    max-width: calc(100vw - 2 * var(--gutter));
+    gap: 14px;
+    padding: 16px 20px;
+  }
+
+  .link,
+  .link:hover {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .inner {
+    height: 72px;
+    padding-top: 22px;
+  }
+
+  .burger {
+    top: 22px;
+    width: 28px;
+  }
+
+  .list {
+    top: 62px;
+    padding: 12px 16px;
+  }
+
+  .link,
+  .link:hover {
+    font-size: 18px;
+  }
+}

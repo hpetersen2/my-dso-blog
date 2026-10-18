@@ -49,3 +49,15 @@
     margin-top: 6px;
   }
 }
+
+@media (max-width: 480px) {
+  .inner {
+    padding-top: 56px;
+    padding-bottom: 64px;
+    text-align: center;
+  }
+
+  .copy {
+    margin-top: 48px;
+  }
+}

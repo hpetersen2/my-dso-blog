@@ -105,3 +105,37 @@
     text-align: center;
   }
 }
+
+@media (max-width: 480px) {
+  .greeting,
+  .role {
+    font-size: 20px;
+  }
+
+  .image {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 320px) {
+  .greeting,
+  .role {
+    font-size: 18px;
+  }
+
+  .name {
+    font-size: clamp(24px, 11vw, 32px);
+    overflow-wrap: anywhere;
+  }
+
+  .about {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .image {
+    border-radius: 16px;
+    margin: 20px 0 18px;
+  }
+}

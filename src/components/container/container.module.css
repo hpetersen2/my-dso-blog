@@ -6,6 +6,6 @@
 
 @media (max-width: 900px) {
   .container {
-    padding-inline: 24px;
+    padding-inline: var(--gutter, 24px);
   }
 }
