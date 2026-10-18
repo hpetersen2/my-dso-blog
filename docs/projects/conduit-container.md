@@ -1,9 +1,20 @@
 ---
+sidebar_position: 6
 title: Conduit Container
 description: An Angular frontend and Django backend run together in a containerized environment with Docker Compose.
 ---
 
+import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
+
 # Conduit Container
+
+<GithubLinkAdmonition 
+    link="https://github.com/hpetersen2/conduit-container"
+    title="Github Tip" 
+    type="tip"
+>
+Checkout this repository to see the code/implementation
+</GithubLinkAdmonition>
 
 A Docker-based setup to run an Angular frontend and a Django backend together in a unified, containerized environment. This project demonstrates how to package, network, and secure multiple services using Docker and Docker Compose for local development and cloud-ready deployment.
 
@@ -24,18 +35,9 @@ The main goal of this project is to consolidate knowledge in containerization, n
   - [Rebuilding Containers](#rebuilding-containers)
   - [Updating Submodules](#updating-submodules)
 - [Architecture Overview](#architecture-overview)
+- [Security Notes](#security-notes)
 - [Contributing](#contributing)
 - [License](#license)
-
-import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
-
-<GithubLinkAdmonition 
-    link="https://github.com/hpetersen2/conduit-container"
-    title="Github Tip" 
-    type="tip"
->
-Checkout this repository to see the code/implementation
-</GithubLinkAdmonition>
 
 ## Installation / Quickstart
 
@@ -63,9 +65,11 @@ docker compose --version
 1. Clone the project repository:
 
    ```bash
-   git clone git@github.com:HPetersen2/conduit-container.git
+   git clone https://github.com/hpetersen2/conduit-container.git
    cd conduit-container
    ```
+
+   If you have an SSH key registered with GitHub, you can use `git@github.com:hpetersen2/conduit-container.git` instead.
 
 2. Initialize and update Git submodules (frontend & backend):
 
@@ -225,6 +229,17 @@ git submodule update --init --recursive
 
 ## Architecture Overview
 
+```mermaid
+flowchart LR
+    B["Browser"] -- ":4200" --> F
+    B -- ":8000/admin" --> BE
+    subgraph N["Docker network (docker compose)"]
+        F["frontend<br/>Angular"] -- "API requests via service name" --> BE["backend<br/>Django API"]
+        BE --> DB[("Database")]
+    end
+    E[".env<br/>ports, hostnames, secrets"] -. "configures" .-> N
+```
+
 * **Angular Frontend**: Built and served from a dedicated frontend container
 * **Django Backend**: Runs in its own container with isolated dependencies
 * **Docker Network**: Enables secure communication between services
@@ -233,6 +248,14 @@ git submodule update --init --recursive
 This setup mirrors real-world cloud deployments and encourages best practices in service isolation and network security.
 
 ---
+
+## Security Notes
+
+- **Never commit the `.env` file.** It contains secrets. Only `.env.template` belongs in version control.
+- **Change all default secrets** from `.env.template` before you use the stack outside your own machine.
+- **Publish only the ports you need.** The frontend and the backend are reachable on the host ports from `.env`; the services talk to each other inside the Docker network.
+- **Do not run `docker compose down --volumes` by accident.** It deletes the database data.
+- **Use HTTPS** with a reverse proxy in front of the stack for anything reachable from the internet.
 
 ## Contributing
 
@@ -248,4 +271,4 @@ Contributions are welcome.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/HPetersen2/conduit-container/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/hpetersen2/conduit-container/blob/main/LICENSE) file for details.

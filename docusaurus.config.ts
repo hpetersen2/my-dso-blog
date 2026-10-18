@@ -28,6 +28,7 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
   markdown: {
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
@@ -41,16 +42,16 @@ const config: Config = {
     locales: ['en'],
   },
 
+  themes: ['@docusaurus/theme-mermaid'],
+
   presets: [
     [
       'classic',
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/spmse/dev-blog-template',
+          editUrl: 'https://github.com/hpetersen2/my-dso-blog/tree/main/',
+          showLastUpdateTime: true,
         },
         blog: blogEnabled ? 
           {
@@ -61,8 +62,7 @@ const config: Config = {
             },
             // Please change this to your repo.
             // Remove this to remove the "edit this page" links.
-            editUrl:
-              'https://github.com/spmse/dev-blog-template',
+            editUrl: 'https://github.com/hpetersen2/my-dso-blog/tree/main/',
             // Useful options to enforce blogging best practices
             onInlineTags: 'warn',
             onInlineAuthors: 'warn',
@@ -106,8 +106,8 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/guides/intro',
+              label: 'Projects',
+              to: '/docs/projects/overview',
             },
           ],
         },

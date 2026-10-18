@@ -1,0 +1,38 @@
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  margin: 0;
+  padding: 0 8px 0 6px;
+  background: var(--white);
+  border-radius: 10px;
+  list-style: none;
+  color: var(--dark);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: pre-line;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.chip img {
+  height: 32px;
+  width: auto;
+  max-width: 44px;
+}
+
+@media (max-width: 320px) {
+  .chip {
+    height: 36px;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .chip img {
+    height: 24px;
+    max-width: 32px;
+  }
+}

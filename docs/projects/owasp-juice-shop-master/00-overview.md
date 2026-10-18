@@ -7,6 +7,8 @@ description: Write-ups and demo videos for three 3-star OWASP Juice Shop challen
 
 This project documents the completion of three self-selected hacking challenges (3-star difficulty) from the OWASP Juice Shop, submitted as part of the practical project "Juice Shop Meister" at Developer Akademie. It covers three distinct vulnerability categories: OSINT-based account takeover, improper input validation, and SQL injection-based information disclosure. Each challenge page contains a step-by-step write-up, an explanation of the underlying vulnerability and its real-world risks, and a link to a short demonstration video. All content is provided strictly for educational purposes.
 
+![Preview of the OWASP Juice Shop Master project](@site/static/img/portfolio/projects/owasp-juice-shop-master.svg)
+
 ## TOC
 
 - [Quickstart](#quickstart)
@@ -16,22 +18,11 @@ This project documents the completion of three self-selected hacking challenges 
   - [3. Database Schema (Information Disclosure / SQL Injection)](./03-database-schema.md)
 - [Educational Purpose Notice](#educational-purpose-notice)
 
-import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
-
-<GithubLinkAdmonition 
-    link="https://github.com/HPetersen2/OWASP-Juice-Shop-Master"
-    title="Github Tip" 
-    type="tip"
->
-Checkout this repository to see the code/implementation
-</GithubLinkAdmonition>
-
 ## Quickstart
 
-1. Clone the [GitHub repository](https://github.com/HPetersen2/OWASP-Juice-Shop-Master).
-2. Start an OWASP Juice Shop instance locally (`docker run -d -p 3000:3000 bkimminich/juice-shop`) or use the instance shown in the videos.
-3. Open the page of the challenge you're interested in — each contains the full write-up and video link.
-4. Watch the linked video (max. 5 minutes each) alongside the write-up to reproduce the steps.
+1. Start an OWASP Juice Shop instance locally (`docker run -d -p 3000:3000 bkimminich/juice-shop`) or use the instance shown in the videos.
+2. Open the page of the challenge you're interested in — each contains the full write-up and video link.
+3. Watch the linked video (max. 5 minutes each) alongside the write-up to reproduce the steps.
 
 ## Challenges
 

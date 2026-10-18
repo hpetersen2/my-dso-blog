@@ -1,0 +1,68 @@
+.main {
+  min-height: 70vh;
+  padding: 64px 0;
+  font-family: var(--font-body);
+}
+
+.title {
+  margin: 24px 0 32px;
+  font-family: var(--font-heading);
+  color: var(--white);
+}
+
+.main h2 {
+  margin: 32px 0 8px;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--white);
+}
+
+.main p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.main a {
+  color: var(--white);
+}
+
+.main a:hover {
+  color: var(--blue-hover);
+}
+
+.back {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--blue-hover);
+}
+
+@media (max-width: 900px) {
+  .main {
+    padding: 40px 0;
+  }
+
+  .title {
+    margin: 16px 0 24px;
+    font-size: 2rem;
+  }
+
+  .main h2 {
+    margin-top: 24px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 24px 0;
+    overflow-x: clip;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    overflow-wrap: anywhere;
+  }
+}

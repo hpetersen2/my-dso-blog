@@ -1,9 +1,20 @@
 ---
-title: Signs for Trucks
+sidebar_position: 2
+title: Truck Signs API
 description: A Django REST Framework backend for an online store that sells customizable truck lettering vinyls, with Stripe payments.
 ---
 
-# Signs for Trucks
+import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
+
+# Truck Signs API
+
+<GithubLinkAdmonition 
+    link="https://github.com/hpetersen2/truck-signs-api"
+    title="Github Tip" 
+    type="tip"
+>
+Checkout this repository to see the code/implementation
+</GithubLinkAdmonition>
 
 ## TOC
 
@@ -14,23 +25,17 @@ description: A Django REST Framework backend for an online store that sells cust
   - [Models](#models)
   - [Brief Explanation of the Views](#brief-explanation-of-the-views)
 - [Installation](#installation)
+- [Security Notes](#security-notes)
+- [Known Limitations](#known-limitations)
 - [Useful Links](#useful-links)
-
-import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
-
-<GithubLinkAdmonition 
-    link="https://github.com/HPetersen2/truck-signs-api"
-    title="Github Tip" 
-    type="tip"
->
-Checkout this repository to see the code/implementation
-</GithubLinkAdmonition>
 
 ## Description
 
 **Signs for Trucks** is an online store to buy pre-designed vinyls with custom lines of letters (often called truck letterings). The store also allows clients to upload their own designs and to customize them on the website as well. Aside from the vinyls that are the main product of the store, clients can also purchase simple lettering vinyls with no truck logo, a fire extinguisher vinyl, and/or a vinyl with only the truck unit number (or another number selected by the client).
 
 This page documents the Django backend (REST API and admin panel).
+
+![Preview of the Truck Signs store](@site/static/img/portfolio/projects/truck-signs-api.svg)
 
 ## Tech Stack
 
@@ -59,6 +64,18 @@ Most of the models do what can be inferred from their name. The following notes 
 - **Order:** Contains the cart (just one vinyl, as only one product can be purchased at a time), plus the contact and shipping information of the client.
 - **Payment:** Holds the payment information such as the time of the purchase and the client ID in Stripe.
 
+The following diagram shows how the most important models relate to each other:
+
+```mermaid
+flowchart LR
+    C["Category"] --> P["Product"]
+    P --> PV["Product Variation"]
+    LC["Lettering Item Category"] --> LV["Lettering Item Variations"]
+    LV --> PV
+    PV --> O["Order<br/>(cart: one vinyl)"]
+    O -. "paid via Stripe" .-> PAY["Payment"]
+```
+
 ### Brief Explanation of the Views
 
 Most views are class-based views (CBVs) from `rest_framework.generics`. They provide the basic CRUD operations of the API and inherit from `ListAPIView`, `CreateAPIView`, `RetrieveAPIView`, and so on.
@@ -70,7 +87,7 @@ Some views had to be customized. For example, creating an order and the payment 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/HPetersen2/truck-signs-api.git
+   git clone https://github.com/hpetersen2/truck-signs-api.git
    cd truck-signs-api
    ```
 
@@ -142,6 +159,20 @@ To create truck vinyls with truck logos, first create the **Category** *Truck Si
 Never commit your `.env` file. It contains the Django secret key, database credentials, and Stripe keys.
 :::
 
+## Security Notes
+
+- **Never commit the `.env` file.** It holds the Django `SECRET_KEY`, the database credentials and the Stripe keys.
+- **Use Stripe test keys** for development and keep the secret key out of the frontend.
+- **Use your own database password** and do not reuse the example values from this page.
+- **Use HTTPS** in production, because the API handles customer data and payments.
+
+## Known Limitations
+
+- **Outdated versions:** Python 3.8, Django 2.2.8 and Django REST Framework 3.12 are end-of-life and no longer receive security fixes. Upgrade them before any real use.
+- **Email sending is disabled:** The code that sends a confirmation email is commented out in the create-order view in `views.py`.
+- **One product per order:** The cart contains exactly one vinyl.
+- **Default environment:** Without changes, the Docker testing environment is active. Switch it in `__init__.py` of the `settings` folder.
+
 ## Useful Links
 
 ### PostgreSQL Database
@@ -157,7 +188,7 @@ Never commit your `.env` file. It contains the Django secret key, database crede
 
 ### Django and DRF
 
-- [Django Official Documentation](https://docs.djangoproject.com/en/4.0/)
+- [Django Official Documentation (version 2.2, as used here)](https://docs.djangoproject.com/en/2.2/)
 - [Generate a new secret key](https://stackoverflow.com/questions/41298963/is-there-a-function-for-generating-settings-secret-key-in-django)
 - Modify the Django admin:
   - [Small modifications (searching, columns, …)](https://realpython.com/customize-django-admin-python/)

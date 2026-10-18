@@ -1,25 +1,12 @@
 ---
+sidebar_position: 5
 title: WordPress Docker Setup
 description: A reusable Docker Compose setup for deploying isolated WordPress instances quickly and consistently.
 ---
 
-# WordPress Docker Setup
-
-A reusable Docker setup for deploying WordPress quickly and consistently. It spins up isolated WordPress environments for development, testing, or repeated project setups with minimal effort.
-
-## TOC
-
-- [Description](#description)
-- [Features](#features)
-- [Quickstart](#quickstart)
-  - [Prerequisites](#prerequisites)
-  - [Steps](#steps)
-- [Usage](#usage)
-  - [Adjusting Configuration](#adjusting-configuration)
-  - [Container Management](#container-management)
-- [Security Notes](#security-notes)
-
 import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
+
+# WordPress Docker Setup
 
 <GithubLinkAdmonition 
     link="https://github.com/hpetersen2/wordpress-docker-setup/"
@@ -29,13 +16,28 @@ import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
 Checkout this repository to see the code/implementation
 </GithubLinkAdmonition>
 
+A reusable Docker setup for deploying WordPress quickly and consistently. It spins up isolated WordPress environments for development, testing, or repeated project setups with minimal effort.
+
+## TOC
+
+- [Description](#description)
+- [Tech Stack](#tech-stack)
+- [Quickstart](#quickstart)
+  - [Prerequisites](#prerequisites)
+  - [Steps](#steps)
+- [Usage](#usage)
+  - [Adjusting Configuration](#adjusting-configuration)
+  - [Container Management](#container-management)
+- [Security Notes](#security-notes)
+- [Known Limitations](#known-limitations)
+
 ## Description
 
 The repository provides a ready-to-use Docker configuration that installs WordPress together with a database. Its purpose is to:
 
-- Offer a **simple, consistent, and repeatable** WordPress setup
-- Allow the configuration of multiple independent WordPress instances
-- Reduce setup time by automating environment preparation
+- Offer a **simple, consistent, and repeatable** WordPress setup that is fully configurable via `.env`
+- Allow several independent WordPress instances for development, testing or server use
+- Reduce setup time, because no manual database setup is required
 
 **Contents of the repository:**
 
@@ -43,13 +45,23 @@ The repository provides a ready-to-use Docker configuration that installs WordPr
 - `.env.template` — Template with all configurable environment variables
 - Startup instructions for local development or server deployment
 
-## Features
+![Preview of the WordPress setup](@site/static/img/portfolio/projects/wordpress.svg)
 
-- Quick WordPress deployment using Docker
-- Fully configurable via `.env`
-- Easily replicable for multiple projects
-- Suitable for local development or server environments
-- No manual database setup required
+```mermaid
+flowchart LR
+    B["Browser"] -- "localhost:WORDPRESS_PORT" --> W
+    subgraph D["Docker Compose"]
+        W["WordPress container"] --> DB[("Database container")]
+    end
+    E[".env"] -. "configures" .-> D
+    V["Docker volumes"] -. "persist data" .-> D
+```
+
+## Tech Stack
+
+- **Docker** and **Docker Compose** v2+
+- **WordPress** and a database container, both defined in `docker-compose.yml`
+- **Git/GitHub** (version control)
 
 ## Quickstart
 
@@ -64,7 +76,7 @@ The repository provides a ready-to-use Docker configuration that installs WordPr
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/HPetersen2/wordpress-docker-setup.git
+   git clone https://github.com/hpetersen2/wordpress-docker-setup.git
    cd wordpress-docker-setup
    ```
 
@@ -137,3 +149,9 @@ docker compose restart
 - Never commit your `.env` file; it contains credentials. Only `.env.template` belongs in version control.
 - Use strong, unique database passwords.
 - When deploying to a server, put WordPress behind a reverse proxy with HTTPS instead of exposing the port directly.
+
+## Known Limitations
+
+- **Data lives in Docker volumes.** `docker compose down` keeps it, `docker compose down -v` deletes it. Back up the volumes before you remove them.
+- **Instances are separate clones.** Each instance needs its own copy of the repository and a different `WORDPRESS_PORT`.
+- **No HTTPS included.** The setup only exposes plain HTTP. For production, add a reverse proxy with a certificate.

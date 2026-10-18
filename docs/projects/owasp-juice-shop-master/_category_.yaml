@@ -1,4 +1,5 @@
 label: "Juice Shop Master"
+position: 3
 link:
     type: "doc"
     id: projects/owasp-juice-shop-master/overview

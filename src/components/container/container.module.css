@@ -1,0 +1,11 @@
+.container {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(24px, 8.33vw, 120px);
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding-inline: var(--gutter, 24px);
+  }
+}
