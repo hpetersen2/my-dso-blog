@@ -1,6 +1,6 @@
 # My Developer Blog and Portfolio
 
-A [Docusaurus](https://docusaurus.io/) site that combines a personal developer portfolio (start page, built with React and TypeScript) with project documentation, guides and a knowledge base. The portfolio presents skills, project highlights and contact details and links every project to its documentation in this site. It is deployed to GitHub Pages by a GitHub Actions pipeline.
+A [Docusaurus](https://docusaurus.io/) site that combines a personal developer portfolio (start page, built with React and TypeScript) with project documentation. The portfolio presents skills, project highlights and contact details and links every project to its documentation in this site. It is deployed to GitHub Pages by a GitHub Actions pipeline.
 
 ![Portfolio on desktop](static/img/readme/portfolio-desktop.png)
 
@@ -28,7 +28,6 @@ A [Docusaurus](https://docusaurus.io/) site that combines a personal developer p
 - **Portfolio start page** (`src/pages/index.tsx`) with the sections Header, Hero, My skills, My project highlights, Contact and Footer, each implemented as its own React component.
 - **Responsive design** for desktop and mobile, styled with CSS Modules.
 - **Project documentation** in `docs/projects/`, linked from every project card of the portfolio.
-- **Guides and knowledge base** in `docs/guides/` and `docs/knowledge-base/`.
 - **Optional blog** (switched on with `BLOG_ENABLED=true`).
 - **CI/CD pipeline** that type-checks, builds and deploys the site to GitHub Pages on every push to `main`.
 
@@ -154,7 +153,7 @@ The site is then available at <https://hpetersen2.github.io/my-dso-blog/>.
 
 #### NGINX with Docker
 
-The `Dockerfile` builds the site and serves it with NGINX. A step-by-step guide is available in [docs/guides/deploy-docusaurus-with-docker-and-nginx.md](docs/guides/deploy-docusaurus-with-docker-and-nginx.md).
+The `Dockerfile` builds the site and serves it with NGINX.
 
 ## Repository Structure
 
@@ -196,8 +195,6 @@ Each component lives in its own kebab-case folder in `src/components/` with the 
 | `README.md` | This file. |
 | `babel.config.js` | Babel preset of Docusaurus. |
 | `blog/` | Blog posts (`*.md`, `*.mdx`), authors (`authors.yml`) and tags (`tags.yml`). Only visible with `BLOG_ENABLED=true`. |
-| `docs/guides/` | Guides about Docusaurus basics, environment variables and NGINX deployment. |
-| `docs/knowledge-base/` | Knowledge base articles about Container, DevOps, git and Linux. |
 | `docs/projects/` | One documentation page per project (`baby-tools-shop.md`, `conduit-container.md`, `minecraft-server.md`, `truck-signs-api.md`, `vserver-setup.md`, `wordpress-docker-setup.md`), the OWASP Juice Shop write-ups (`owasp-juice-shop-master/`), the overview page (`overview.mdx`) and a template (`_example-project.md`). |
 | `docusaurus.config.ts` | Site configuration (URL, base URL, presets, navbar, footer). |
 | `example.env` | Example environment variables, also used by the CI pipeline. |
