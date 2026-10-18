@@ -16,7 +16,7 @@ export const projects: Project[] = [
     id: 'baby-tools',
     title: 'Baby Tools',
     description: placeholderText,
-    tags: ['HTML', 'CSS'],
+    tags: ['HTML', 'CSS', 'Python', 'Container'],
     image: '/img/portfolio/projects/baby-tools-shop.svg',
     docsUrl: '/docs/projects/baby-tools-shop',
     githubUrl: 'https://github.com/hpetersen2/baby-tools-shop',
