@@ -1,9 +1,20 @@
 ---
+sidebar_position: 1
 title: Baby Tools Shop
 description: A Django e-commerce app for baby products, containerized with Docker and deployed on a V-Server.
 ---
 
+import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
+
 # Baby Tools Shop - Containerized with Docker
+
+<GithubLinkAdmonition 
+    link="https://github.com/hpetersen2/baby-tools-shop"
+    title="Github Tip" 
+    type="tip"
+>
+Checkout this repository to see the code/implementation
+</GithubLinkAdmonition>
 
 A Django-based e-commerce web application for baby products, containerized with Docker for easy deployment and development.
 
@@ -27,16 +38,6 @@ A Django-based e-commerce web application for baby products, containerized with 
 - [Known Limitations](#known-limitations)
 - [License](#license)
 
-import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
-
-<GithubLinkAdmonition 
-    link="https://github.com/hpetersen2/baby-tools-shop"
-    title="Github Tip" 
-    type="tip"
->
-Checkout this repository to see the code/implementation
-</GithubLinkAdmonition>
-
 ## Description
 
 This project demonstrates how to containerize an existing Django application with Docker. The same image runs on a local machine for development and on a V-Server for production, so the application behaves identically in both environments.
@@ -47,6 +48,19 @@ This project demonstrates how to containerize an existing Django application wit
 - Dockerfile for building the image
 - `entrypoint.sh`, which prepares the database, creates a superuser, loads demo data and starts Gunicorn
 - SQLite3 database configuration
+
+![Preview of the Baby Tools Shop](@site/static/img/portfolio/projects/baby-tools-shop.svg)
+
+```mermaid
+flowchart LR
+    B["Browser"] -- "localhost:3000" --> H["Host port 3000"]
+    H -- "-p 3000:8025" --> G
+    subgraph C["Docker container babyshop_app"]
+        G["Gunicorn :8025"] --> D["Django app"]
+        D --> S[("SQLite<br/>db.sqlite3")]
+    end
+    V["Optional volume<br/>db.sqlite3 on the host"] -. "keeps data" .-> S
+```
 
 ## Quickstart
 

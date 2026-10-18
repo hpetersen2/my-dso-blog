@@ -69,12 +69,12 @@ export default function ProjectHighlights(): ReactNode {
             <ProjectCard
               key={project.id}
               project={project}
-              heading={`${index + 1}.${project.title}`}
+              heading={`${index + 1}. ${project.title}`}
             />
           ))}
           <p className={styles.moreText}>
-            Write some information about your other projects. What other projects have you been
-            working on so far?
+            More projects, such as a full-stack Angular and Django setup with Docker Compose and the
+            setup of my first V-Server, are documented in the project overview.
           </p>
           <SeeMoreLink />
         </div>

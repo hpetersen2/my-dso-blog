@@ -1,9 +1,20 @@
 ---
-title: Minecraft Docker Server
+sidebar_position: 4
+title: Minecraft Server
 description: A fully containerized, configurable Minecraft server that runs locally or on a V-Server using Docker.
 ---
 
-# Minecraft Docker Server
+import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
+
+# Minecraft Server
+
+<GithubLinkAdmonition 
+    link="https://github.com/hpetersen2/Minecraft-Server"
+    title="Github Tip" 
+    type="tip"
+>
+Checkout this repository to see the code/implementation
+</GithubLinkAdmonition>
 
 ## TOC
 
@@ -17,16 +28,8 @@ description: A fully containerized, configurable Minecraft server that runs loca
   - [Persisting World Data](#persisting-world-data)
   - [Server Properties](#server-properties)
   - [Optional: Testing Server Status](#optional-testing-server-status)
-
-import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
-
-<GithubLinkAdmonition 
-    link="https://github.com/HPetersen2/Minecraft-Server"
-    title="Github Tip" 
-    type="tip"
->
-Checkout this repository to see the code/implementation
-</GithubLinkAdmonition>
+- [Security Notes](#security-notes)
+- [Known Limitations](#known-limitations)
 
 ## Description
 
@@ -40,6 +43,19 @@ This repository provides a fully containerized **Minecraft server** for multipla
 
 **Purpose:** Provide a ready-to-use, configurable Minecraft server environment that can be run locally or deployed to a server without manual installation of Java or Minecraft server files.
 
+![Preview of the Minecraft server](@site/static/img/portfolio/projects/minecraft.svg)
+
+```mermaid
+flowchart LR
+    P["Player<br/>Minecraft client"] -- "host port 8888" --> H["Docker host"]
+    H -- "-p 8888:25565" --> M
+    subgraph C["Docker container mc-server"]
+        M["Minecraft server<br/>server.jar, port 25565"]
+    end
+    E[".env<br/>PORT, XMX, XMS, EULA, ..."] -. "--env-file" .-> M
+    W["Volume ./world"] -. "world data" .-> M
+```
+
 ## Quickstart
 
 ### Prerequisites
@@ -52,12 +68,12 @@ This repository provides a fully containerized **Minecraft server** for multipla
 1. **Download the Minecraft Server JAR**
 
    Download the server JAR from the official Minecraft website:
-   [https://www.minecraft.net/de-de/download/server](https://www.minecraft.net/de-de/download/server)
+   [https://www.minecraft.net/en-us/download/server](https://www.minecraft.net/en-us/download/server)
 
-   For V-Server deployments, download directly using curl and save it as `server.jar`:
+   For V-Server deployments, download directly using curl and save it as `server.jar`. Copy the current link from the download page above, because the URL changes with every Minecraft version:
 
    ```bash
-   curl -o server.jar https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar
+   curl -o server.jar <link-from-the-download-page>
    ```
 
    :::warning
@@ -151,7 +167,13 @@ This starts the container in detached mode, keeping it running even after you di
 
 To save your world data and survive container restarts, mount a volume:
 ```bash
-docker run -p 8888:25565 --env-file .env -v $(pwd)/world:/minecraft/world mc-server
+docker run -p 8888:25565 --env-file .env -v "$(pwd)/world:/minecraft/world" mc-server
+```
+
+In PowerShell, use `${PWD}` instead of `$(pwd)`:
+
+```powershell
+docker run -p 8888:25565 --env-file .env -v "${PWD}/world:/minecraft/world" mc-server
 ```
 
 This maps the container's world directory to your host system, ensuring all world data is preserved.
@@ -187,3 +209,18 @@ python test.py
 ```
 
 The script automatically reads `HOST`, `PORT`, and `QUERY_PORT` from your `.env` file. Ensure your virtual environment is activated and dependencies are installed before running.
+
+## Security Notes
+
+- **`HOST=0.0.0.0` makes the server reachable from outside.** Use it only on a server you intend to expose, and keep `127.0.0.1` for local tests.
+- **Restrict who can join.** Set `white-list=true` in `server.properties` and add your players, so only known accounts can connect.
+- **Keep `online-mode=true`** (the default) so that players are authenticated against Mojang.
+- **Open only the ports you need.** The game port (`PORT`) must be reachable, the query port only if you use the status test.
+- **Update the server regularly.** Download the current `server.jar` to get security fixes and rebuild the image.
+- **Never commit the `.env` file.** Only `.env.template` belongs in version control.
+
+## Known Limitations
+
+- **Manual JAR download:** The `server.jar` is not part of the repository and has to be downloaded for every Minecraft version.
+- **Settings need a rebuild:** Changes in `server.properties` only take effect after the image has been rebuilt.
+- **No automatic backups:** World data is only persisted when the volume is mounted. Back up the `world` folder yourself.

@@ -7,6 +7,8 @@ description: Write-ups and demo videos for three 3-star OWASP Juice Shop challen
 
 This project documents the completion of three self-selected hacking challenges (3-star difficulty) from the OWASP Juice Shop, submitted as part of the practical project "Juice Shop Meister" at Developer Akademie. It covers three distinct vulnerability categories: OSINT-based account takeover, improper input validation, and SQL injection-based information disclosure. Each challenge page contains a step-by-step write-up, an explanation of the underlying vulnerability and its real-world risks, and a link to a short demonstration video. All content is provided strictly for educational purposes.
 
+![Preview of the OWASP Juice Shop Master project](@site/static/img/portfolio/projects/owasp-juice-shop-master.svg)
+
 ## TOC
 
 - [Quickstart](#quickstart)
